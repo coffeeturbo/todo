@@ -9,7 +9,10 @@ sudo: false
 before_script:
   - chmod a+x gradlew
 
-sccript: ./gradlew build
+sccript:
+  - ./gradlew build
+  - ./gradlew check
+  - ./gradlew jacocoTestReport
 
 env:
   global:

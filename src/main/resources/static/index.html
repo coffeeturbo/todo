@@ -27,7 +27,8 @@
                 <table>
                     <tr>
                         <td><label class="control-label" for="desc">Введите задачу</label></td>
-                        <td><input type="text" class="input-xlarge" id="desc" name="desc" placeholder="Что нужно сделать?">
+                        <td><input type="text" class="input-xlarge" id="desc" name="desc"
+                                   placeholder="Что нужно сделать?">
                         </td>
                     </tr>
                     <tr>
@@ -144,7 +145,7 @@
     function listCategories() {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/job4j_todo_war/categories',
+            url: 'http://localhost:8080/categories',
             dataType: 'json'
         }).done(function (data) {
             let rows;
@@ -163,7 +164,7 @@
     function listItems(done = "false") {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/job4j_todo_war/items',
+            url: 'http://localhost:8080/items',
             dataType: 'json',
             data: "done=" + done
         }).done(function (data) {
@@ -216,10 +217,14 @@
         console.log(item);
 
         jQuery.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             type: 'POST',
-            url: 'http://localhost:8080/job4j_todo_war/items',
+            url: 'http://localhost:8080/items',
             dataType: 'json',
-            data: "data=" + JSON.stringify(item)
+            data: JSON.stringify(item)
         }).done(function (item) {
             console.log(item);
 

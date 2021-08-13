@@ -11,8 +11,7 @@ import ru.coffeeturbo.todo.model.Item;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -28,13 +27,16 @@ class ItemServiceTest {
     @Rollback
     void whenAddItemSuccess() {
         var item = Item.builder()
-                .description("testNeee")
+                .description("Test item")
                 .done(false)
                 .created(new Date(System.currentTimeMillis()))
                 .build();
 
         itemService.add(item);
         assertNotEquals(0, item.getId());
+        assertEquals("Test item", item.getDescription());
+        assertNotNull(item.isDone());
+        assertNotNull(item.getCreated());
     }
 
     @Test

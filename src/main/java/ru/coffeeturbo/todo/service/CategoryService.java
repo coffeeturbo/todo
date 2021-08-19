@@ -1,6 +1,7 @@
 package ru.coffeeturbo.todo.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.coffeeturbo.todo.model.Category;
@@ -11,7 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-
+@RequiredArgsConstructor
 @Service
 public class CategoryService {
 

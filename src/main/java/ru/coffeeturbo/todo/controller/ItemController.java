@@ -3,7 +3,6 @@ package ru.coffeeturbo.todo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.coffeeturbo.todo.model.Item;
 import ru.coffeeturbo.todo.service.ItemService;
@@ -28,7 +27,7 @@ public class ItemController {
     ResponseEntity<Item> update(@RequestBody Item item, @PathVariable int id) {
         try {
             item.setId(id);
-            service.update(item);
+            item = service.updateDoneStatus(item);
             return new ResponseEntity<>(item, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(Item.builder().build(), HttpStatus.NOT_FOUND);
@@ -49,7 +48,7 @@ public class ItemController {
     ResponseEntity<List<Item>> getAll(
             @RequestParam(required = false) String done
     ) {
-        List<Item> result = null;
+        List<Item> result;
         if (done != null && !done.equals("")) {
             result = service.findByDoneAll(Boolean.parseBoolean(done));
         } else {

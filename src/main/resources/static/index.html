@@ -55,7 +55,7 @@
         <div class="span10">
             <h2>Список дел</h2>
             <label class="checkbox">
-                <input type="checkbox" name="filter" id="filter"> показать все
+                <input type="checkbox" name="filter" id="filter"> показать все не выполненные
             </label>
             <table class="table table-bordered table-striped table-condensed task-list">
                 <thead>
@@ -92,7 +92,7 @@
 
         $("#filter").on("change", function (e) {
             if ($('#filter').is(":checked")) {
-                listItems("any")
+                listItems("false")
             } else {
                 listItems("true")
             }
@@ -161,12 +161,14 @@
         });
     }
 
-    function listItems(done = "false") {
+    function listItems(done) {
+
+        let data = done == null ? "" : "done=" + done;
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/items',
             dataType: 'json',
-            data: "done=" + done
+            data: data
         }).done(function (data) {
             let rows;
             let body = $(".task-list tbody");
@@ -187,10 +189,14 @@
         }
 
         jQuery.ajax({
-            type: 'POST',
-            url: 'http://localhost:8080/job4j_todo_war/items?id=' + id,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'PUT',
+            url: 'http://localhost:8080/items/' + id,
             dataType: 'json',
-            data: "data=" + JSON.stringify(item)
+            data: JSON.stringify(item)
         }).done(function (item) {
             console.log(item);
             $(".task-list tr.item-" + item.id).replaceWith(createTrHtml(item))
@@ -205,7 +211,9 @@
 
         let categories = [];
         $("#category_select option:selected").each(function () {
-            categories.push($(this).val())
+            categories.push({
+                id: $(this).val()
+            });
         });
 
         let item = {
@@ -241,10 +249,8 @@
 
         jQuery.ajax({
             type: 'DELETE',
-            url: 'http://localhost:8080/job4j_todo_war/items?' + "id=" + id,
-            dataType: 'json'
+            url: 'http://localhost:8080/items/' + id,
         }).done(function (data) {
-            console.log(data);
             $(".item-" + id).remove();
         }).fail(function (err) {
             console.log(err);

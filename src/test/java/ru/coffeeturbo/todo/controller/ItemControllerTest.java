@@ -70,7 +70,7 @@ class ItemControllerTest {
     void whenItemUpdateSuccess() throws Exception {
         Item item = createItem(1);
 
-        when(service.update(any(Item.class))).thenReturn(item);
+        when(service.updateDoneStatus(any(Item.class))).thenReturn(item);
 
         mockMvc.perform(
                         put("/items/1")
@@ -90,7 +90,7 @@ class ItemControllerTest {
     void whenItemUpdateFailed() throws Exception {
         var item = createItem(99999);
 
-        when(service.update(any(Item.class))).thenThrow(NoSuchElementException.class);
+        when(service.updateDoneStatus(any(Item.class))).thenThrow(NoSuchElementException.class);
 
         mockMvc.perform(
                         put("/items/99999")

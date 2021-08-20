@@ -35,7 +35,7 @@ class ItemServiceTest {
         itemService.add(item);
         assertNotEquals(0, item.getId());
         assertEquals("Test item", item.getDescription());
-        assertNotNull(item.isDone());
+        assertFalse(item.isDone());
         assertNotNull(item.getCreated());
     }
 
@@ -51,7 +51,7 @@ class ItemServiceTest {
         itemService.add(item);
         assertEquals(item.getDescription(), "Test description");
         item.setDescription("Update test description");
-        itemService.update(item);
+        itemService.updateDoneStatus(item);
         assertEquals(item.getDescription(), "Update test description");
     }
 

@@ -21,18 +21,21 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
+
 	implementation 'javax.persistence:javax.persistence-api:2.2'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.3'
 	implementation 'org.postgresql:postgresql:42.2.23.jre7'
 
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
 
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.3'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.4'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
 	testImplementation 'org.hsqldb:hsqldb:2.6.0'
+
 
 
 }

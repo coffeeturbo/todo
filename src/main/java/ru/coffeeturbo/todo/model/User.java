@@ -1,8 +1,10 @@
 package ru.coffeeturbo.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +19,10 @@ public class User {
     Long id;
 
     @NonNull
+    @Email
     String email;
+
+    @JsonIgnore
     @NonNull
     String password;
 }
